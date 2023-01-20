@@ -130,8 +130,8 @@ class CsvToDot:
             string|None: Node key if found. None otherwise
         """
         return self._dict_search_value (
-            self._nodes,
-            value
+            d = self._nodes,
+            value = value
         );
     
     
@@ -200,7 +200,7 @@ class CsvToDot:
             handler: Opened file
         """
         if ( self._csv_fh == None ):
-            self._csv_fh = open ( local_file, 'r');
+            self._csv_fh = open ( local_file, 'r' );
         return self._csv_fh;
     
     
@@ -209,7 +209,7 @@ class CsvToDot:
         """
         try:
             ## Close : csv file
-            close ( self._csv_fh );
+            self._csv_fh.close ();
             self._csv_fh = None;
         except Exception as e:
             pass;
@@ -263,11 +263,11 @@ class CsvToDot:
         """Nodes"""
         ret = [];
         
-        for label in self._nodes:
+        for key in self._nodes:
             ret.append (
-                '{label} [label="{node}"];'.format (
-                    label = label,
-                    node = self._nodes [ label ]
+                '{key} [label="{node}"];'.format (
+                    key = key,
+                    node = self._nodes [ key ]
                 )
             );
         
