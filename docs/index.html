@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Csv to Dot for Graphviz &mdash; Csv to Dot for Graphviz 0.0.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="#" class="icon icon-home"> Csv to Dot for Graphviz
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">Csv to Dot for Graphviz</a><ul>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot"><code class="docutils literal notranslate"><span class="pre">CsvToDot</span></code></a><ul>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._csv_fh"><code class="docutils literal notranslate"><span class="pre">CsvToDot._csv_fh</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._node_indice"><code class="docutils literal notranslate"><span class="pre">CsvToDot._node_indice</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._node_key_tpl"><code class="docutils literal notranslate"><span class="pre">CsvToDot._node_key_tpl</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._nodes"><code class="docutils literal notranslate"><span class="pre">CsvToDot._nodes</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._edges"><code class="docutils literal notranslate"><span class="pre">CsvToDot._edges</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._dot_tpl"><code class="docutils literal notranslate"><span class="pre">CsvToDot._dot_tpl</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._nodes_opts"><code class="docutils literal notranslate"><span class="pre">CsvToDot._nodes_opts</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot.__init__"><code class="docutils literal notranslate"><span class="pre">CsvToDot.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._add_edge"><code class="docutils literal notranslate"><span class="pre">CsvToDot._add_edge()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._close_fh"><code class="docutils literal notranslate"><span class="pre">CsvToDot._close_fh()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._create_node_key"><code class="docutils literal notranslate"><span class="pre">CsvToDot._create_node_key()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._csv_reader"><code class="docutils literal notranslate"><span class="pre">CsvToDot._csv_reader()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._dict_search_value"><code class="docutils literal notranslate"><span class="pre">CsvToDot._dict_search_value()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._flat_edges_to_dot"><code class="docutils literal notranslate"><span class="pre">CsvToDot._flat_edges_to_dot()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._flat_nodes_to_dot"><code class="docutils literal notranslate"><span class="pre">CsvToDot._flat_nodes_to_dot()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._get_fh_csv"><code class="docutils literal notranslate"><span class="pre">CsvToDot._get_fh_csv()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._get_node_key"><code class="docutils literal notranslate"><span class="pre">CsvToDot._get_node_key()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._init_j2"><code class="docutils literal notranslate"><span class="pre">CsvToDot._init_j2()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._init_resources"><code class="docutils literal notranslate"><span class="pre">CsvToDot._init_resources()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._nodes_search_value"><code class="docutils literal notranslate"><span class="pre">CsvToDot._nodes_search_value()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._print_dot"><code class="docutils literal notranslate"><span class="pre">CsvToDot._print_dot()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._print_dot_file"><code class="docutils literal notranslate"><span class="pre">CsvToDot._print_dot_file()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._print_dot_stdout"><code class="docutils literal notranslate"><span class="pre">CsvToDot._print_dot_stdout()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot._print_graphvz_instructions"><code class="docutils literal notranslate"><span class="pre">CsvToDot._print_graphvz_instructions()</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.CsvToDot.run"><code class="docutils literal notranslate"><span class="pre">CsvToDot.run()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.MODULE_PATH"><code class="docutils literal notranslate"><span class="pre">MODULE_PATH</span></code></a></li>
+<li><a class="reference internal" href="#csv_to_dot.csv_to_dot.RESOURCE_PATH"><code class="docutils literal notranslate"><span class="pre">RESOURCE_PATH</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Csv to Dot for Graphviz</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Csv to Dot for Graphviz</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-csv_to_dot.csv_to_dot">
+<span id="csv-to-dot-for-graphviz"></span><h1>Csv to Dot for Graphviz<a class="headerlink" href="#module-csv_to_dot.csv_to_dot" title="Permalink to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">csv_to_dot.csv_to_dot.</span></span><span class="sig-name descname"><span class="pre">CsvToDot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'box'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'filled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_bg_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'blue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_font_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a 2 columns CSV file to a .dot, who can be converted with Graphviz to .jpg, .ps, …</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._csv_fh">
+<span class="sig-name descname"><span class="pre">_csv_fh</span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._csv_fh" title="Permalink to this definition"></a></dt>
+<dd><p>Protected. CSV file handler</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>handler</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._node_indice">
+<span class="sig-name descname"><span class="pre">_node_indice</span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._node_indice" title="Permalink to this definition"></a></dt>
+<dd><p>Protected. Indice to increment at each node</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._node_key_tpl">
+<span class="sig-name descname"><span class="pre">_node_key_tpl</span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._node_key_tpl" title="Permalink to this definition"></a></dt>
+<dd><p>Protected. Template to create node key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._nodes">
+<span class="sig-name descname"><span class="pre">_nodes</span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._nodes" title="Permalink to this definition"></a></dt>
+<dd><p>Protected. All nodes, key&gt;label</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._edges">
+<span class="sig-name descname"><span class="pre">_edges</span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._edges" title="Permalink to this definition"></a></dt>
+<dd><p>Protected. Dict of list with all edges</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._dot_tpl">
+<span class="sig-name descname"><span class="pre">_dot_tpl</span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._dot_tpl" title="Permalink to this definition"></a></dt>
+<dd><p>Protected. Jinja template for dot file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>jinja2.Template</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._nodes_opts">
+<span class="sig-name descname"><span class="pre">_nodes_opts</span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._nodes_opts" title="Permalink to this definition"></a></dt>
+<dd><p>Protected. Nodes options</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nodes_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'box'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_style</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'filled'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_bg_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'blue'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nodes_font_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'white'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Default constructor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nodes_shape</strong> (<em>str</em>) – Nodes option : shape, default : box</p></li>
+<li><p><strong>nodes_style</strong> (<em>str</em>) – Nodes option : style, default : filled</p></li>
+<li><p><strong>nodes_bg_color</strong> (<em>str</em>) – Nodes option : background color, default : blue</p></li>
+<li><p><strong>nodes_font_color</strong> (<em>str</em>) – Nodes option : font color, default : white</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._add_edge">
+<span class="sig-name descname"><span class="pre">_add_edge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._add_edge" title="Permalink to this definition"></a></dt>
+<dd><p>Store edge between n1 &gt; n2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n1</strong> (<em>string</em>) – Node 1 : label</p></li>
+<li><p><strong>n2</strong> (<em>string</em>) – Node 2 : label</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._close_fh">
+<span class="sig-name descname"><span class="pre">_close_fh</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._close_fh" title="Permalink to this definition"></a></dt>
+<dd><p>Close file handlers</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._create_node_key">
+<span class="sig-name descname"><span class="pre">_create_node_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._create_node_key" title="Permalink to this definition"></a></dt>
+<dd><p>Create new node key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Node key</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._csv_reader">
+<span class="sig-name descname"><span class="pre">_csv_reader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._csv_reader" title="Permalink to this definition"></a></dt>
+<dd><p>Create CSV reader</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_file</strong> (<em>string</em>) – Absolute local file path to csv file</p></li>
+<li><p><strong>delimiter</strong> (<em>string</em>) – Csv delimiter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Csv reader</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>csv.Reader</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._dict_search_value">
+<span class="sig-name descname"><span class="pre">_dict_search_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._dict_search_value" title="Permalink to this definition"></a></dt>
+<dd><p>Search value on dict &amp; returns key if exists</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>d</strong> (<em>dict</em>) – Dictionnary to lookup</p></li>
+<li><p><strong>value</strong> (<em>string</em>) – Value to get key</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Key if found. None otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string|None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._flat_edges_to_dot">
+<span class="sig-name descname"><span class="pre">_flat_edges_to_dot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._flat_edges_to_dot" title="Permalink to this definition"></a></dt>
+<dd><p>Convert all edges to a list for templating</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Edges for jinja2 templates</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string[]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._flat_nodes_to_dot">
+<span class="sig-name descname"><span class="pre">_flat_nodes_to_dot</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._flat_nodes_to_dot" title="Permalink to this definition"></a></dt>
+<dd><p>Convert all nodes to a list for templating</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Nodes for jinja2 templates</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string[]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._get_fh_csv">
+<span class="sig-name descname"><span class="pre">_get_fh_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._get_fh_csv" title="Permalink to this definition"></a></dt>
+<dd><p>Open file handler : csv file (singleton)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>local_file</strong> (<em>string</em>) – Absolute local file path to csv file</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Opened file</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>handler</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._get_node_key">
+<span class="sig-name descname"><span class="pre">_get_node_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._get_node_key" title="Permalink to this definition"></a></dt>
+<dd><p>Get/create a node key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>node</strong> (<em>string</em>) – Node label</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Key associated to label</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._init_j2">
+<span class="sig-name descname"><span class="pre">_init_j2</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._init_j2" title="Permalink to this definition"></a></dt>
+<dd><p>Init jinja2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._init_resources">
+<span class="sig-name descname"><span class="pre">_init_resources</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._init_resources" title="Permalink to this definition"></a></dt>
+<dd><p>Init resources used by system : init jinja2</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._nodes_search_value">
+<span class="sig-name descname"><span class="pre">_nodes_search_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._nodes_search_value" title="Permalink to this definition"></a></dt>
+<dd><p>Seach node key from value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>string</em>) – Node value to get key</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Node key if found. None otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>string|None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._print_dot">
+<span class="sig-name descname"><span class="pre">_print_dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._print_dot" title="Permalink to this definition"></a></dt>
+<dd><p>Print dot file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>local_file</strong> (<em>string</em><em>|</em><em>None</em>) – Absolute local file path to create .dot file. If None, print on stdout</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if write on stdout. False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._print_dot_file">
+<span class="sig-name descname"><span class="pre">_print_dot_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._print_dot_file" title="Permalink to this definition"></a></dt>
+<dd><p>Print dot file on stdout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_file</strong> (<em>string</em>) – Absolute local file path to create .dot file</p></li>
+<li><p><strong>content</strong> (<em>string</em>) – Content to print</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._print_dot_stdout">
+<span class="sig-name descname"><span class="pre">_print_dot_stdout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._print_dot_stdout" title="Permalink to this definition"></a></dt>
+<dd><p>Print dot file on stdout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>content</strong> (<em>string</em>) – Content to print</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot._print_graphvz_instructions">
+<span class="sig-name descname"><span class="pre">_print_graphvz_instructions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot._print_graphvz_instructions" title="Permalink to this definition"></a></dt>
+<dd><p>Print some instructions to use graphwiz on stdout</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>local_file</strong> (<em>string</em>) – Absolute local file path to create .dot file</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.CsvToDot.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">local_in_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">';'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local_out_file</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#csv_to_dot.csv_to_dot.CsvToDot.run" title="Permalink to this definition"></a></dt>
+<dd><p>Run process csv &gt; dot</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>local_in_file</strong> (<em>string</em>) – Absolute local file path to csv file</p></li>
+<li><p><strong>delimiter</strong> (<em>string</em>) – Csv delimiter. Default : ‘;’</p></li>
+<li><p><strong>local_out_file</strong> (<em>string</em><em>|</em><em>None</em>) – Absolute local file path to create .dot file. If None, print on stdout</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.MODULE_PATH">
+<span class="sig-prename descclassname"><span class="pre">csv_to_dot.csv_to_dot.</span></span><span class="sig-name descname"><span class="pre">MODULE_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/debian/modules/python-csv-to-dot/csv_to_dot'</span></em><a class="headerlink" href="#csv_to_dot.csv_to_dot.MODULE_PATH" title="Permalink to this definition"></a></dt>
+<dd><p>Current module path</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="csv_to_dot.csv_to_dot.RESOURCE_PATH">
+<span class="sig-prename descclassname"><span class="pre">csv_to_dot.csv_to_dot.</span></span><span class="sig-name descname"><span class="pre">RESOURCE_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/debian/modules/python-csv-to-dot/csv_to_dot/resources'</span></em><a class="headerlink" href="#csv_to_dot.csv_to_dot.RESOURCE_PATH" title="Permalink to this definition"></a></dt>
+<dd><p>Resource path</p>
+</dd></dl>
+
+<div class="toctree-wrapper compound">
+</div>
+</section>
+<section id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this heading"></a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Mindbaz.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
