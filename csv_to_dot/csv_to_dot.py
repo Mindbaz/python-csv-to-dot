@@ -118,12 +118,6 @@ class CsvToDot:
         );
     
     
-    def __del__ ( self ):
-        """Default destructor : close files handler
-        """
-        self._close_fh ()
-    
-    
     def _get_node_key ( self, node: str ) -> str:
         """Get/create a node key
         
@@ -250,28 +244,92 @@ class CsvToDot:
         return ret;
     
     
-    def _print_dot ( self ):
-        """Print dot file
+    def _print_dot_stdout ( self, content: str ):
+        """Print dot file on stdout
+        
+        Arguments:
+            content (string): Content to print
         """
-        print ( self._dot_tpl.render (
+        sys.stdout.write ( content );
+    
+    
+    def _print_graphvz_instructions ( self, local_file: str ):
+        """Print some instructions to use graphwiz on stdout
+        
+        Arguments:
+            local_file (string): Absolute local file path to create .dot file
+        """
+        """Destination file name"""
+        dest_file = local_file.split ( '.' );
+        if ( len ( dest_file ) > 1 ):
+            dest_file.pop ();
+        dest_file.append ( '<EXT>' );
+        
+        sys.stdout.write (
+            "Dot file created at : {local_file}\nRun command :\n  dot -T<EXT> {local_file} -o {dest_file} # Replace <EXT> with required format\nNB : Require debian package : `graphviz`\n".format (
+                local_file = local_file,
+                dest_file = '.'.join ( dest_file )
+            )
+        );
+    
+    
+    def _print_dot_file ( self, local_file: str, content: str ):
+        """Print dot file on stdout
+        
+        Arguments:
+            local_file (string): Absolute local file path to create .dot file
+            content (string): Content to print
+        """
+        with open ( local_file, 'w' ) as fh:
+            fh.write ( content );
+        
+        self._print_graphvz_instructions (
+            local_file = local_file
+        );
+    
+    
+    def _print_dot ( self, local_file: Union[str,None] = None ) -> bool:
+        """Print dot file
+        
+        Arguments:
+            local_file (string|None): Absolute local file path to create .dot file. If None, print on stdout
+        
+        Returns:
+            bool: True if write on stdout. False otherwise
+        """
+        """Dot file content"""
+        content = self._dot_tpl.render (
             edges = self._flat_edges_to_dot (),
             nodes = self._flat_nodes_to_dot (),
-        ) );
-            
+        );
+        content = "{}\n".format ( content );
+        
+        if ( local_file == None ):
+            self._print_dot_stdout (
+                content = content
+            );
+            return True;
+        
+        self._print_dot_file (
+            local_file = local_file,
+            content = content
+        );
+        return False;
     
-    def run ( self, local_file: str, delimiter: str = ';' ):
+    
+    def run ( self, local_in_file: str, delimiter: str = ';', local_out_file: Union[str,None] = None ):
         """Run process csv > dot
         
         Arguments:
-            local_file (string): Absolute local file path to csv file
+            local_in_file (string): Absolute local file path to csv file
             delimiter (string): Csv delimiter. Default : ';'
+            local_out_file (string|None): Absolute local file path to create .dot file. If None, print on stdout
         """
-        
         ## Process .csv
         
         """CSV reader"""
         r_csv = self._csv_reader (
-            local_file = local_file,
+            local_file = local_in_file,
             delimiter = delimiter
         );
         
@@ -281,6 +339,10 @@ class CsvToDot:
                 n2 = row [ 1 ]
             );
         
+        self._close_fh ();
+        
         ## Process : .dot
         
-        self._print_dot ();
+        self._print_dot (
+            local_file = local_out_file
+        );

@@ -33,7 +33,8 @@ def run ():
     
     ## All arguments
     parser.add_argument ( '--csv-file', type = str, nargs = '?', help = 'Absolute local path to CSV file to convert' );
-    parser.add_argument ( '--csv-delim', type = str, nargs = '?', help = 'CSV delimiter, default : ;', default = ';' );
+    parser.add_argument ( '--csv-delim', type = str, nargs = '?', help = 'CSV delimiter, default : ";"', default = ';' );
+    parser.add_argument ( '--dot-file', type = str, nargs = '?', help = 'Absolute local path to DOT file to create' );
     parser.add_argument ( '--version', action = 'store_true', help = 'Display version' );
     args = parser.parse_args ();
     
@@ -49,6 +50,15 @@ def run ():
         print ( 'Missing --csv-file file. -h to show help' );
         exit ( 2 );
     
+    if ( args.dot_file != None ):
+        """Dot file directory"""
+        dot_file_dir = os.path.dirname ( args.dot_file );
+        if ( os.path.isdir ( dot_file_dir ) == False ):
+            print ( 'Wrong --dot-file value. Directory "{}" unexists'.format (
+                dot_file_dir
+            ) );
+            exit ( 2 );
+    
     ## Begin
     
     #
@@ -59,8 +69,9 @@ def run ():
     csv_to_dot = CsvToDot ();
     
     csv_to_dot.run (
-        local_file = args.csv_file,
-        delimiter = args.csv_delim
+        local_in_file = args.csv_file,
+        delimiter = args.csv_delim,
+        local_out_file = args.dot_file
     );
     
     exit ( 0 );
