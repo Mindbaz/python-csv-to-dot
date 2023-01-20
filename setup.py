@@ -36,6 +36,7 @@ setup (
     license = 'GPLv3',
     packages = [
         'csv_to_dot',
+        'csv_to_dot.resources',
         'entry_points_csv_to_dot'
     ],
     install_requires = [
