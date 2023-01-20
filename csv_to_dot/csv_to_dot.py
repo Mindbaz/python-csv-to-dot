@@ -1,5 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Convert .csv to .dot
+# Copyright (C) 2023 Mindbaz
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import os;
 import sys;
 import jinja2;
@@ -24,10 +39,17 @@ class CsvToDot:
         _node_key_tpl (string): Protected. Template to create node key
         _nodes (dict): Protected. All nodes, key>label
         _edges (dict): Protected. Dict of list with all edges
-        _dot_tpl (???): Protected. Jinja template for dot file
+        _dot_tpl (jinja2.Template): Protected. Jinja template for dot file
+        _nodes_opts (dict): Protected. Nodes options
     """
-    def __init__ ( self ):
+    def __init__ ( self, nodes_shape: str = 'box', nodes_style: str = 'filled', nodes_bg_color: str = 'blue', nodes_font_color: str = 'white' ):
         """Default constructor
+        
+        Arguments:
+            nodes_shape (str): Nodes option : shape, default : box
+            nodes_style (str): Nodes option : style, default : filled
+            nodes_bg_color (str): Nodes option : background color, default : blue
+            nodes_font_color (str): Nodes option : font color, default : white
         """
         """CSV file handler"""
         self._csv_fh = None;
@@ -46,6 +68,14 @@ class CsvToDot:
         
         """Jinja template for dot file"""
         self._dot_tpl = None;
+        
+        """Nodes options"""
+        self._nodes_opts = {
+            'shape': nodes_shape.strip (),
+            'style': nodes_style.strip (),
+            'bg_color': nodes_bg_color.strip (),
+            'font_color': nodes_font_color.strip ()
+        };
         
         self._init_resources ();
     
@@ -193,7 +223,7 @@ class CsvToDot:
             delimiter (string): Csv delimiter
         
         Returns:
-            csv.Reader: Csv reader 
+            csv.Reader: Csv reader
         """
         return reader (
             self._get_fh_csv (
@@ -235,7 +265,7 @@ class CsvToDot:
         
         for label in self._nodes:
             ret.append (
-                '{label} [label="{node}", color="blue", fontcolor="white"];'.format (
+                '{label} [label="{node}"];'.format (
                     label = label,
                     node = self._nodes [ label ]
                 )
@@ -301,6 +331,7 @@ class CsvToDot:
         content = self._dot_tpl.render (
             edges = self._flat_edges_to_dot (),
             nodes = self._flat_nodes_to_dot (),
+            nodes_opts = self._nodes_opts
         );
         content = "{}\n".format ( content );
         
