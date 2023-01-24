@@ -39,6 +39,11 @@ setup (
         'csv_to_dot.resources',
         'entry_points_csv_to_dot'
     ],
+    package_data = {
+        '': [
+            '*.j2'
+        ]
+    },
     install_requires = [
         'Jinja2'
     ],
