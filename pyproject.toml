@@ -1,0 +1,32 @@
+[project]
+name = "csv-to-dot"
+dynamic = ["version"]
+description = "Convert a 2 columns CSV file to a .dot, who can be converted with Graphviz to .jpg, .ps, ..."
+readme = "README.md"
+license = "GPL-3.0-only"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Valentin Henon", email = "vhenon@mindbaz.com" }
+]
+urls = { repository = "https://github.com/Mindbaz/python-csv-to-dot" }
+requires-python = ">=3.9"
+dependencies = [
+    "Jinja2",
+]
+
+[project.scripts]
+csv_to_dot = "entry_points_csv_to_dot.csv_to_dot:run"
+
+[tool.setuptools.dynamic]
+version = { attr = "csv_to_dot.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = [
+    "csv_to_dot",
+    "csv_to_dot.resources",
+    "entry_points_csv_to_dot",
+]
+
+[tool.setuptools.package-data]
+"*" = ["*.j2"]
