@@ -17,6 +17,12 @@ dependencies = [
 [project.scripts]
 csv_to_dot = "entry_points_csv_to_dot.csv_to_dot:run"
 
+[project.optional-dependencies]
+dev = [
+    "pynose",
+    "coverage",
+]
+
 [tool.setuptools.dynamic]
 version = { attr = "csv_to_dot.__version__" }
 
